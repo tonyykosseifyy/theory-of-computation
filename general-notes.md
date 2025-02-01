@@ -78,3 +78,131 @@ Each of these encodings can yield a different input length for the same graph. H
 - If an algorithm has **polynomial time complexity** under one encoding scheme, it will have **polynomial time complexity** under all the others.
 - In practice, the standard encoding schemes for a given problem always seem to differ **at most polynomially** from one another.
 
+
+
+## NP and Decision Problems
+
+### Definition of NP
+**NP** stands for *"Nondeterministic Polynomial Time."* This class includes **decision problems** for which a solution can be **verified** (or "guessed" correctly) in polynomial time by a **nondeterministic** computer.
+
+### Decision Problems
+A **decision problem** is one where the answer is simply **"yes" or "no."**  
+For example:
+- Instead of asking *"What is the shortest route that visits all cities?"* (an **optimization problem**),
+- You could ask, *"Is there a route that visits all cities and has a total length ≤ L?"* (a **decision problem**).  
+
+This **yes/no formulation** is key to fitting problems into the **NP framework**.
+
+---
+
+## The Satisfiability (SAT) Problem in NP
+
+The **Satisfiability (SAT) problem** is one of the fundamental problems in NP.  
+A problem is in NP if, given a **"yes" instance** (i.e., a certificate or solution), we can **verify its correctness quickly** (in polynomial time).
+
+### Polynomial-Time Reductions
+- The key idea is that **every other problem in NP** can be **transformed** (or *"reduced"*) into an instance of the **SAT problem** in polynomial time.
+- This means there is an **efficient way** to convert any **NP problem** into a **SAT problem** such that solving the SAT problem would give the answer to the original problem.
+
+---
+
+## Implications for Solving NP Problems
+
+### If SAT Can Be Solved Quickly
+- Suppose someone finds a **polynomial-time algorithm** for solving SAT.
+- Since **every NP problem reduces to SAT**, you could then **solve any NP problem efficiently** by:
+  1. **Converting it to SAT**, and
+  2. **Applying the efficient SAT algorithm**.
+
+### If Any NP Problem is Intractable
+- Conversely, if even **one** problem in NP is truly **intractable** (meaning it **cannot** be solved in polynomial time),
+- Then, because **every NP problem reduces to SAT**, the **SAT problem must also be intractable**.
+- In other words, **SAT is at least as hard** as the hardest NP problems.
+
+### SAT as the "Hardest" Problem in NP
+- Since **every NP problem can be reduced to SAT**, SAT *captures the full difficulty* of NP.
+- If SAT can be solved quickly → **all NP problems can be solved quickly**.
+- If SAT **cannot** be solved quickly → there exist **NP problems that are inherently hard**.
+- This is why **SAT is often called the "hardest" problem in NP** and is central to **NP-completeness**.
+
+---
+
+## 1. Reductions and Their Implications
+
+### Polynomial-Time Reduction
+For any problem **P** in NP:
+- There exists a **polynomial-time reduction** that transforms any instance of **P** into an instance of **SAT**.
+- This means that if we had an **efficient (polynomial-time) algorithm** to solve SAT, we could:
+
+  1. **Transform**: Convert any instance of **P** into an equivalent SAT instance.
+  2. **Solve**: Use the efficient SAT algorithm to solve this SAT instance.
+  3. **Conclude**: Interpret the result to solve the original problem **P**.
+
+---
+
+## 2. The Consequence of a Fast SAT Algorithm
+
+### Suppose SAT is Tractable
+- Imagine that there is a **polynomial-time algorithm for SAT**.
+- Because **every NP problem reduces to SAT** in polynomial time, this would mean that **every problem in NP could also be solved in polynomial time**.
+- In other words, if SAT were tractable, then **P = NP**.
+
+---
+
+## 3. Assuming Some NP Problem is Intractable
+
+### Intractability of an NP Problem
+- Suppose there exists at least **one** NP problem **Q** that is **truly intractable**—meaning that **no polynomial-time algorithm exists** for **Q**.
+
+---
+
+## 4. Arriving at a Contradiction
+
+### Using the Reduction
+- Since **every NP problem reduces to SAT**, there exists a **polynomial-time reduction** from **Q** to **SAT**.
+- This means that if we could **solve SAT in polynomial time**, then:
+  1. **Convert Q to SAT** (using the reduction).
+  2. **Solve SAT** in polynomial time.
+  3. **Get a polynomial-time solution for Q**.
+
+### Contradiction
+- But this **contradicts our assumption** that **Q is intractable** (i.e., **Q cannot be solved in polynomial time**).
+- Therefore, our **initial assumption that SAT can be solved in polynomial time must be false**.
+
+---
+
+## 5. Conclusion
+
+### SAT is at Least as Hard as the Hardest NP Problems
+- Since **any NP problem** can be **efficiently transformed** into an instance of **SAT**,
+- **SAT inherits the "difficulty" of the hardest NP problems**.
+- If even **one** NP problem is intractable, then **SAT must also be intractable**.
+
+### Final Thought:
+- The **reduction** shows that **SAT is "at least as hard" as any NP problem**.
+- If solving SAT **quickly** were possible, it would mean **all NP problems are quickly solvable**.
+- Since this contradicts the assumption that **at least one NP problem is intractable**, SAT itself **must be intractable**.
+
+
+## NP-Complete Problems: "Just as Hard" as SAT
+
+### Definition of NP-Completeness
+The class of **NP-complete problems** consists of decision problems that are **"just as hard"** as the **Satisfiability (SAT) problem**. These problems were first identified through a series of polynomial-time reductions by **Richard Karp**, showing that several combinatorial decision problems are equally difficult as SAT.
+
+### Practical Implications
+
+1. **Equivalence in Difficulty**  
+   - No matter which **NP-complete problem** you tackle—whether it's **SAT, Traveling Salesman Problem (TSP), or another combinatorial problem**—
+   - Solving **one** NP-complete problem **efficiently (in polynomial time)** would allow you to **solve all NP problems efficiently**.
+
+2. **Implications for Intractability**  
+   - Most researchers believe that **no polynomial-time algorithm exists for at least one NP problem** (i.e., **NP problems are intractable**).
+   - If this assumption is true, then **none** of these NP-complete problems can have a polynomial-time algorithm.
+   - In other words, **all NP-complete problems share a common level of computational difficulty**.
+
+---
+
+### Summary
+- **NP-complete problems** are the hardest problems in **NP**.
+- If **one** NP-complete problem can be solved in **polynomial time**, then **all** NP problems can be solved efficiently.
+- However, if **even one** NP problem is intractable, then **all** NP-complete problems are intractable.
