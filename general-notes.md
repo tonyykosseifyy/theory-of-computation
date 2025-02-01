@@ -206,3 +206,75 @@ The class of **NP-complete problems** consists of decision problems that are **"
 - **NP-complete problems** are the hardest problems in **NP**.
 - If **one** NP-complete problem can be solved in **polynomial time**, then **all** NP problems can be solved efficiently.
 - However, if **even one** NP problem is intractable, then **all** NP-complete problems are intractable.
+
+
+## Understanding the Original TSP Decision Problem
+
+### The TSP Decision Problem
+The **classic decision version** of the **Traveling Salesman Problem (TSP)** asks:
+
+- Given a **set of cities**, the **distances** between each pair of cities, and a **bound B**,  
+- Is there a **tour** that visits every city **exactly once** (and returns to the starting city)  
+  with a **total length of B or less**?
+
+### Verification in TSP
+- If someone provides a **specific tour**, you can quickly (in **polynomial time**) **sum the distances**  
+  and check if the **total length is within the bound B**.
+- This makes the problem belong to **NP**, because a *"yes"* instance can be **verified efficiently**.
+
+---
+
+## The Complement of the TSP Problem
+
+### Defining the Complement
+The **complement of the TSP decision problem** asks:
+
+- Given the same set of **cities, distances, and bound B**,  
+- Is it true that **no tour exists** with a **total length of B or less**?
+
+### What a "Yes" Answer Means for the Complement
+- Answering *"yes"* to this question means confirming that **there is absolutely no tour**  
+  meeting the bound—i.e., **every possible tour exceeds the length B**.
+
+---
+
+## Why Verification is Hard for the Complement
+
+### No Easy Certificate
+- For the **original TSP decision problem**, a **certificate** (the tour) is **easy to verify**.
+- However, for the **complement**, there is **no known short certificate**  
+  or quick proof that **demonstrates no valid tour exists**.
+
+### Exhaustive Search Issue
+- To be **certain** that no tour with length **B or less** exists,  
+  one might have to **check all possible tours** (or a large number of them).
+- Since the number of tours **grows factorially** with the number of cities,  
+  this process is **computationally infeasible** in polynomial time.
+
+---
+
+## The Crux of the Statement
+
+### Verification vs. Search
+- The **key idea in NP** is that if you have a **"yes" instance**, you should be able to **verify it quickly**,  
+  even if **finding** the solution might be **hard**.
+- For the **complement of TSP**, verifying a *"yes"* answer (**i.e., proving no short tour exists**)  
+  would require a method to **quickly rule out every possible tour**—which **we currently don't have**.
+
+### Implication
+- Since there is **no known method** to efficiently **verify** a *"yes"* answer  
+  for the **complement of TSP** without essentially having to explore an **exponential number of possibilities**,  
+  this problem does **not** meet the **criteria for NP verification**.
+- This illustrates why **polynomial-time verifiability** is a **defining characteristic of NP**.
+
+---
+
+## Summary
+
+| Problem Type           | Verification Method | Polynomial Time? |
+|------------------------|--------------------|------------------|
+| **Original TSP (Yes Instance)** | If someone provides a **tour**, you can quickly **check** if it satisfies the bound **B**. | ✅ Yes, in NP |
+| **Complement of TSP (Yes Instance)** | If someone claims **no valid tour exists** within **B**, there is **no known short certificate** or **efficient way** to verify this. | ❌ No, likely outside NP |
+
+- This contrast highlights why the notion of **polynomial-time verifiability** is **crucial** in defining **NP**.
+- Some problems (**like the complement of TSP**) fall **outside NP**, even though they are closely **related to NP problems**.
