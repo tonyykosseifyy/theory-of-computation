@@ -278,3 +278,372 @@ The **complement of the TSP decision problem** asks:
 
 - This contrast highlights why the notion of **polynomial-time verifiability** is **crucial** in defining **NP**.
 - Some problems (**like the complement of TSP**) fall **outside NP**, even though they are closely **related to NP problems**.
+
+
+## The Class P
+
+### Definition of P
+The class **P** is defined as the set of **decision problems** (problems with a **yes/no** answer) that can be **solved by a deterministic Turing machine in polynomial time**. 
+
+- **P is not the set of all problems** but rather a **subset** focused on decision problems where an answer can be determined **efficiently (in polynomial time)**.
+
+### Relationship Between P and NP
+- **P is a subset of NP**:  
+  \[
+  P \subseteq NP
+  \]
+- Most researchers believe that **P ≠ NP**, though **no proof** of this conjecture currently exists.
+- We assume that there exist problems in **NP - P**, meaning **some NP problems cannot be solved in polynomial time** (but their solutions can be verified in polynomial time).
+
+---
+
+## The HAMILTONIAN CIRCUIT Problem
+
+### Problem Definition
+- **INSTANCE**: A graph \( G = (V, E) \).
+- **QUESTION**: Does \( G \) contain a **Hamiltonian circuit**?  
+  (i.e., a cycle that visits **each vertex exactly once** and returns to the starting point)
+
+### Similarity to the Traveling Salesman Problem (TSP)
+- The **Hamiltonian Circuit (HC) problem** is **closely related** to the **Traveling Salesman Problem (TSP)**.
+- We will **show** that **HC can be transformed into TS**, meaning **HC is at least as hard as TS**.
+
+---
+
+## Polynomial Reduction: Hamiltonian Circuit → Traveling Salesman
+
+To show **HC reduces to TS**, we define a **polynomial-time transformation function** \( f \) that maps each instance of HC to a corresponding instance of TS.
+
+### Transformation Definition
+1. **Given an instance of HC**, where \( G = (V, E) \) and \( |V| = m \).
+2. The corresponding **TS instance** has a set **C of cities** identical to **V**.
+3. For any two cities \( v_i, v_j \in C \), define the inter-city **distance**:
+   - \( d(v_i, v_j) = 1 \) if \( (v_i, v_j) \in E \) (i.e., an edge exists in HC).
+   - \( d(v_i, v_j) = 2 \) otherwise.
+4. The **bound B on the tour length** is set to **m**.
+
+### Proving the Transformation is Polynomial
+- To construct this **TS instance**, we must compute distances for \( m(m-1)/2 \) pairs.
+- Checking whether each pair \( (v_i, v_j) \) is an edge in \( G \) can be **done in polynomial time**.
+- Thus, the transformation is **computable in polynomial time**.
+
+---
+
+## Proof of Correctness
+
+We now show that:
+- \( G \) has a **Hamiltonian circuit** **if and only if** there is a **TSP tour** of length at most \( B \).
+
+### Forward Direction: HC → TSP
+- Suppose \( G \) has a **Hamiltonian circuit**:  
+  \[
+  v_1, v_2, \dots, v_m, v_1
+  \]
+- This means there is a **tour visiting all cities** in **f(G)** where:
+  - Each edge in \( G \) corresponds to **a distance of 1**.
+  - The total length of the tour is exactly **m = B**.
+- Therefore, this forms a **valid TSP tour**.
+
+### Reverse Direction: TSP → HC
+- Suppose there is a **TSP tour** of length at most **B = m**.
+- Since **each edge in f(G) is either distance 1 or 2**,  
+  - A **valid tour of length exactly m** means **every edge used must have distance 1**.
+- This implies the corresponding edges exist in **G**, forming a **Hamiltonian circuit**.
+
+Thus, the reduction is **valid**.
+
+---
+
+## Significance of the Reduction
+
+- Since we have shown **HC reduces to TS in polynomial time**, we conclude:
+  - **If TSP can be solved in polynomial time, then HC can also be solved in polynomial time**.
+  - **If HC is intractable, then TSP must also be intractable**.
+
+### Interpretation of Complexity
+- The reduction **HC ≤p TS** (Hamiltonian Circuit **polynomially reduces** to Traveling Salesman).
+- This means that **TSP is at least as hard as HC**.
+- Since **HC is known to be NP-complete**, this suggests that **TSP is also NP-hard**.
+
+---
+
+## Summary
+| Problem | Definition | Complexity Implication |
+|---------|-----------|------------------------|
+| **P** | Class of problems solvable in polynomial time | \( P \subseteq NP \) |
+| **HC (Hamiltonian Circuit)** | Does a given graph contain a Hamiltonian circuit? | **NP-complete** |
+| **TSP (Traveling Salesman)** | Is there a tour of at most length B visiting all cities? | **NP-hard** (TSP-Decision) |
+| **Reduction** | HC **reduces to** TSP in polynomial time | **TSP is at least as hard as HC** |
+
+This proof serves as a **model for polynomial-time reductions**, illustrating how problems relate within **NP-completeness theory**.
+
+
+
+## Polynomial Equivalence of Languages
+
+### Definition of Polynomial Equivalence
+We define two **languages** \( L_1 \) and \( L_2 \) (representing two decision problems \( I_1 \) and \( I_2 \)) to be **polynomially equivalent** whenever:
+
+\[
+L_1 \leq_p L_2 \quad \text{and} \quad L_2 \leq_p L_1
+\]
+
+This means that:
+- **\( L_1 \) can be reduced to \( L_2 \) in polynomial time**, and
+- **\( L_2 \) can be reduced to \( L_1 \) in polynomial time**.
+
+Thus, both problems are of **equal computational difficulty** under polynomial-time reductions.
+
+### Partial Ordering and Complexity Classes
+- **Lemma 2.2** states that this relation **imposes a partial order** on equivalence classes of languages (decision problems).
+- The **class P** forms the "least" partial order and consists of the **computationally "easiest"** decision problems.
+- The **class of NP-complete problems** forms another equivalence class, which contains the **"hardest"** decision problems in **NP**.
+
+---
+
+## Definition of NP-Completeness
+
+### Formal Definition
+A **language \( L \) is NP-complete** if:
+1. \( L \in NP \) (i.e., it is **verifiable** in polynomial time).
+2. **For all** languages \( L' \in NP \), \( L' \leq_p L \) (i.e., **every problem in NP can be polynomially reduced to \( L \)**).
+
+### Informal Definition
+A **decision problem \( I \) is NP-complete** if:
+1. \( I \in NP \) (**it belongs to the NP class**).
+2. **For all** decision problems \( I' \in NP \), \( I' \leq_p I \) (**every NP problem can be reduced to \( I \) in polynomial time**).
+
+### Interpretation of NP-Completeness
+- **Lemma 2.1** helps identify **NP-complete problems as the hardest problems in NP**.
+- If **any single NP-complete problem can be solved in polynomial time**, then **all problems in NP can be solved in polynomial time**.
+- If **any problem in NP is intractable**, then **all NP-complete problems are intractable**.
+
+---
+
+## The P vs. NP Question and NP-Completeness
+
+### Implications of \( P \neq NP \)
+An **NP-complete problem \( I \) has the following property**:
+- If \( P \neq NP \), then \( I \in NP - P \) (i.e., \( I \) is **not solvable in polynomial time**).
+- More precisely, \( I \in P \) **if and only if** \( P = NP \).
+
+### The Landscape of NP
+- Assuming that **\( P \neq NP \)**, we can construct a more **detailed** picture of **computational complexity**.
+- We will see in **Chapter 7** that if **\( P \neq NP \)**, then there must exist problems in **NP** that are **neither solvable in polynomial time** nor **NP-complete**.
+
+---
+
+## Summary
+
+| Complexity Class | Definition | Key Property |
+|-----------------|------------|--------------|
+| **P** | Problems solvable in polynomial time | \( P \subseteq NP \), considered "easy" |
+| **NP** | Problems whose solutions can be verified in polynomial time | Contains both tractable and intractable problems |
+| **NP-Complete** | Hardest problems in NP (every NP problem reduces to them) | If **one** NP-complete problem is polynomially solvable, then \( P = NP \) |
+| **NP-Hard** | At least as hard as NP-complete problems but not necessarily in NP | Can be more complex than NP problems |
+
+This structured view helps in understanding **NP-completeness** and its role in computational complexity.
+
+
+
+## Lemma 2.3: Transitivity of NP-Completeness
+
+The following lemma, which follows directly from our definitions and the **transitivity of polynomial reductions (≤p)**, simplifies the process of proving new problems **NP-complete**.
+
+### **Lemma 2.3**
+**If**:
+- \( L_1 \) and \( L_2 \) belong to **NP**,
+- \( L_1 \) is **NP-complete**, and
+- \( L_1 \leq_p L_2 \) (**i.e., \( L_1 \) reduces to \( L_2 \) in polynomial time**),
+
+**Then**:
+- \( L_2 \) is **NP-complete**.
+
+### **Proof**
+1. Since \( L_2 \in NP \), we only need to show that **every** \( L' \in NP \) reduces to \( L_2 \).
+2. Consider any \( L' \in NP \).  
+   - Since \( L_1 \) is **NP-complete**, it follows that \( L' \leq_p L_1 \).
+   - Given that \( L_1 \leq_p L_2 \), by **transitivity of polynomial reductions**, we obtain:
+     \[
+     L' \leq_p L_1 \quad \text{and} \quad L_1 \leq_p L_2
+     \]
+     which implies:
+     \[
+     L' \leq_p L_2
+     \]
+3. Thus, \( L_2 \) satisfies both conditions for NP-completeness:
+   - \( L_2 \in NP \),
+   - Every problem in **NP** reduces to \( L_2 \).
+
+Hence, **\( L_2 \) is NP-complete**.
+
+---
+
+## **Using Lemma 2.3 to Prove NP-Completeness**
+
+This lemma provides a **straightforward approach** to proving new problems **NP-complete**, once we have at least one known **NP-complete problem**.
+
+### **Steps to Prove a Problem \( I \) is NP-Complete**
+To prove that a problem \( I \) is **NP-complete**, we must show:
+1. **\( I \in NP \)** (i.e., it belongs to NP).
+2. **Some known NP-complete problem \( I' \) reduces to \( I \)** in polynomial time.
+
+By **Lemma 2.3**, this ensures \( I \) is NP-complete.
+
+---
+
+## **Significance of Lemma 2.3**
+- **Simplifies proving NP-completeness**:  
+  - We **do not** need to reduce **every NP problem** to \( I \),  
+  - Instead, we only need to **reduce one known NP-complete problem** to \( I \).
+- **Building a hierarchy of NP-complete problems**:  
+  - Once a single **NP-complete problem is identified** (e.g., **SAT**),  
+  - We can **use reductions** to prove many other problems NP-complete.
+
+This technique is widely used in computational complexity theory to classify new problems.
+
+---
+
+## **Summary Table: Proving NP-Completeness**
+| Step | Requirement |
+|------|------------|
+| **1. Show \( I \in NP \)** | Verify that solutions to \( I \) can be checked in polynomial time. |
+| **2. Reduce a known NP-complete problem \( I' \) to \( I \)** | Show that \( I' \leq_p I \), meaning that any instance of \( I' \) can be efficiently transformed into an instance of \( I \). |
+| **Conclusion** | By Lemma 2.3, \( I \) is NP-complete. |
+
+This method allows us to **extend** the list of NP-complete problems efficiently using **transitive reductions**.
+
+
+## NP-Completeness of 3-SAT
+
+The **3-SAT problem** is a restricted version of the **Boolean Satisfiability Problem (SAT)** where every clause has exactly **three literals**. Despite this restriction, **3-SAT is NP-complete**, and it is frequently used in reductions to prove other problems are NP-complete.
+
+---
+
+## 1. **Definition of 3-SAT**
+
+- **3-SAT** is a special case of **SAT**, where the formula is in **conjunctive normal form (CNF)** and each clause has **exactly three literals**.
+- Even with this restriction, **3-SAT remains NP-complete**.
+- It is widely used in **complexity proofs** due to its structured format.
+
+---
+
+## 2. **3-SAT Belongs to NP**
+
+- A problem is in **NP** if a "yes" instance can be **verified** in polynomial time.
+- Given a candidate **truth assignment** (i.e., an assignment of true/false values to each variable), we can:
+  - Check each **three-literal clause** in polynomial time to see if **at least one literal is true**.
+- Therefore, **3-SAT is in NP**.
+
+---
+
+## 3. **Reduction from SAT to 3-SAT**
+
+To prove **3-SAT is NP-complete**, we need to show that every instance of **SAT** can be transformed into an instance of **3-SAT** in **polynomial time**.
+
+This transformation works by **modifying clauses with fewer or more than three literals**, ensuring every clause in the resulting formula has **exactly three literals**.
+
+### **Case 1: \( k = 1 \) (One Literal)**
+- **Problem:** A clause like \( (l_1) \) contains only **one literal**.
+- **Solution:** Add two extra literals that do not affect satisfiability:
+  \[
+  (l_1 \vee y \vee \neg y)
+  \]
+  - Here, \( y \) is a new **dummy variable**, and since \( y \vee \neg y \) is always **true**, this transformation preserves satisfiability.
+
+### **Case 2: \( k = 2 \) (Two Literals)**
+- **Problem:** A clause like \( (l_1 \vee l_2) \) has **only two literals**.
+- **Solution:** Introduce an extra literal:
+  \[
+  (l_1 \vee l_2 \vee y)
+  \]
+  - Again, \( y \) can be chosen so that this transformation **does not alter satisfiability**.
+
+### **Case 3: \( k = 3 \) (Three Literals)**
+- **Problem:** The clause already has **three literals**.
+- **Solution:** No changes are needed; the clause is already in the correct format.
+
+### **Case 4: \( k > 3 \) (More than Three Literals)**
+- **Problem:** A clause like  
+  \[
+  (l_1 \vee l_2 \vee l_3 \vee \dots \vee l_k)
+  \]
+  has **too many literals**.
+- **Solution:** Break it into multiple three-literal clauses using **auxiliary variables**.
+
+#### **Transformation Approach**
+1. Introduce **new variables** \( y_1, y_2, \dots, y_{k-3} \).
+2. Replace the **long clause** with a sequence of **three-literal clauses**:
+   \[
+   (l_1 \vee l_2 \vee y_1)
+   \]
+   \[
+   (\neg y_1 \vee l_3 \vee y_2)
+   \]
+   \[
+   (\neg y_2 \vee l_4 \vee y_3)
+   \]
+   \[
+   \vdots
+   \]
+   \[
+   (\neg y_{k-3} \vee l_{k-1} \vee l_k)
+   \]
+
+#### **Intuition Behind This Approach**
+- The first clause **(l_1 ∨ l_2 ∨ y_1)** ensures that **if neither \( l_1 \) nor \( l_2 \) is true, then \( y_1 \) must be true**.
+- The second clause **(¬y_1 ∨ l_3 ∨ y_2)** forces **\( y_1 \) to activate \( l_3 \) or propagate to \( y_2 \)**.
+- This chain **continues until all literals are included**.
+- **Final clause ensures satisfiability if and only if the original clause was satisfiable**.
+
+---
+
+## 4. **Proof of Equivalence**
+
+To show the transformation preserves satisfiability:
+
+### **Forward Direction:**  
+- If the original **SAT formula** \( C \) is satisfiable, there is a truth assignment making every clause **true**.
+- The **extra variables** introduced in Cases 1, 2, and 4 can be assigned values to ensure the **new clauses** are also **true**.
+
+### **Backward Direction:**  
+- If the transformed **3-SAT formula** \( C' \) is satisfiable, then by **restricting the satisfying assignment to the original variables**, we obtain a **truth assignment that satisfies the original formula**.
+
+Thus, **the original SAT problem is satisfiable if and only if the transformed 3-SAT problem is satisfiable**.
+
+---
+
+## 5. **Polynomial-Time Complexity of the Transformation**
+- The number of new clauses introduced is **proportional** to the number of literals in each clause.
+- The overall size of the new formula \( C' \) is **polynomially bounded** in terms of the size of the original formula.
+- Therefore, the **conversion from SAT to 3-SAT runs in polynomial time**.
+
+---
+
+## 6. **Significance of This Result**
+- Since SAT **is NP-complete**, and we have shown **SAT ≤p 3-SAT** (SAT reduces to 3-SAT in polynomial time), this means **3-SAT is also NP-complete**.
+- Because of its structured format, **3-SAT is often used as a starting point** for reductions when proving other problems NP-complete.
+- **Comparison with 2-SAT**:
+  - **2-SAT (where each clause has only two literals) is solvable in polynomial time**.
+  - **3-SAT is NP-complete**, showing that increasing the clause size from 2 to 3 makes the problem significantly harder.
+
+---
+
+## 7. **Summary Table: 3-SAT Reduction**
+| Clause Type | Transformation |
+|------------|---------------|
+| **1 Literal (k = 1)** | \( (l_1) \to (l_1 \vee y \vee \neg y) \) |
+| **2 Literals (k = 2)** | \( (l_1 \vee l_2) \to (l_1 \vee l_2 \vee y) \) |
+| **3 Literals (k = 3)** | Already in correct format |
+| **More than 3 Literals (k > 3)** | Split using auxiliary variables \( y_1, y_2, \dots \) |
+
+---
+
+## 8. **Key Takeaways**
+- **3-SAT is NP-complete**.
+- Every **SAT formula** can be **converted into 3-SAT in polynomial time**.
+- This proof establishes **3-SAT as a fundamental NP-complete problem**.
+- **Many NP-completeness proofs use 3-SAT as a starting point** due to its structured format.
+
+This **reduction technique** is essential in computational complexity theory and helps in proving the **NP-completeness of many other problems**.
+
