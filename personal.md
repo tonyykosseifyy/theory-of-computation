@@ -10,3 +10,6 @@ When writing the correctness proof, we need to always keep in mind, how we get a
 
 
 When reducing, use examples, and let's say as an example here, we will take reduction from exact cover 3 to exact cover 4. In this reduction, we need to keep the properties present in problem A, but generate "fake" and "needed" data in problem B, so that we fulfill its conditions. Here we did the creation of arbitrary variables, included in each subsets, in order not to pollute the data in problem A. Here, the reduction is by local replacement method: Al we do is pick some aspect of the known NP-complete problem instance to make up a collection of basic un- its, and we obtain the corresponding instance of the target problem by re- placing each basic unit, in a uniform way, with a different structure
+
+
+in 3SAT to Set splitting reduction. we have copied the same information, first in S all literals and their negations + f ( to set a constraint ). Also, while copying the clauses we added f, { x1, x2, x3, f }. Here we have conserved the meaning { x1 or x2 or x3 } and added an additional constraint so that it works perfectly with problem B requirements. Also, we have added clauses { x1 , !x1 } to add an additional constraint that each literal should be in one set. 
