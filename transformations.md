@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/13b9ded0-2712-463f-ac2a-ab350eea202d)# Discrete 2
+# Discrete 2
 
 ## NP-Completeness and Reductions
 
