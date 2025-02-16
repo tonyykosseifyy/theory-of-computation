@@ -198,23 +198,8 @@ Thus, **this method helps in proving the NP-completeness of problem \( B \) by s
 - **Proof by restriction is a way to view transformations**: Instead of constructing a direct reduction, you try to **find structural similarities** between the problems.
 - If an NP-complete problem **naturally fits into another problem’s framework**, then the **generalized problem must also be NP-complete**.
 
-X3C (Exact cover by 3 sets) to Minimum Cover (Proof by restriction):
+![image](https://github.com/user-attachments/assets/8eb58677-004f-41a1-875f-ced2220b08df)
 
-Problem Statement:
-•	Input:
-o	A finite set S with ∣S∣=3q (i.e., the size of S is a multiple of 3).
-o	A collection C of 3-element subsets of S, meaning each subset c∈C satisfies ∣c∣=3|c|.
-•	Question:
-o	Does there exist a subcollection C′⊆C such that:
-	C′ exactly covers S (i.e., the union of the sets in C′ equals S, meaning every element of S appears in exactly one subset in C′).
-	∣C′∣=q, meaning the exact number of sets needed to cover S is q=∣S∣/3. 
-Input:
-S={1,2,3,4,5,6,7,8,9}
- C={{1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9}}
-Solution:
-A valid exact cover is:
-C′={{1,2,3},{4,5,6},{7,8,9}}
-✅ Each element appears exactly once, so the answer is YES.
 
 Minimum cover problem instance: 
 Given a set S, and a subset C which contains sets such as in X3C, can you find a minimum cover of size <= k, the minimum cover is the size of C’ which is a subset of C, all these subsets should cover S, so their union = S. 
@@ -983,11 +968,7 @@ Thus, a **"yes" instance of X3C** implies a **"yes" instance of Steiner Tree (wi
 - This reduction confirms that **X3C is a special case of Steiner Tree**.
 
 
-
-
-
-
-
+## ADD RULER PACKING AND 3 COL TO 7 COL
 
 
 
