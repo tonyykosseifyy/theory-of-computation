@@ -310,6 +310,13 @@ The class **P** is defined as the set of **decision problems** (problems with a 
 - Most researchers believe that **P ≠ NP**, though **no proof** of this conjecture currently exists.
 - We assume that there exist problems in **NP - P**, meaning **some NP problems cannot be solved in polynomial time** (but their solutions can be verified in polynomial time).
 
+Saying 
+𝑃 ⊆ 𝑁𝑃
+P ⊆ NP just means “every problem in P is also in NP.” That automatically allows the possibility that they’re exactly the same set.
+
+We don’t know if it’s strict.
+
+
 ---
 
 ## The HAMILTONIAN CIRCUIT Problem
