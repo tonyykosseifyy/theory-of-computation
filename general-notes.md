@@ -4,7 +4,7 @@
 
 When we say that problem **A** is *"at least as hard as"* problem **B**, we mean that **B** can be reduced to **A** in polynomial time.
 
-# Direction Matters: Understanding Reductions
+### Direction Matters: Understanding Reductions
 
 **“A is at least as hard as B” ↔ “B reduces to A.”**
 
