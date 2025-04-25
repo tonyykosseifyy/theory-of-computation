@@ -136,6 +136,9 @@ A problem is in NP if, given a **"yes" instance** (i.e., a certificate or soluti
 - If SAT **cannot** be solved quickly → there exist **NP problems that are inherently hard**.
 - This is why **SAT is often called the "hardest" problem in NP** and is central to **NP-completeness**.
 
+### Assumption: And their results
+
+Assuming P ≠ NP, there must exist problems in NP that are neither in P nor NP-complete
 ---
 
 ## 1. Reductions and Their Implications
