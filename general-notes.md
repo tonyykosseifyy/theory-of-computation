@@ -4,6 +4,17 @@
 
 When we say that problem **A** is *"at least as hard as"* problem **B**, we mean that **B** can be reduced to **A** in polynomial time.
 
+# Direction Matters: Understanding Reductions
+
+**“A is at least as hard as B” ↔ “B reduces to A.”**
+
+- If **B is easy** (e.g., B ∈ P), you can always reduce B to any A ∈ NP by solving B first and emitting a trivial A-instance.
+- But you **cannot** (unless **P = NP**) reduce a **hard NP problem A** into an **easy problem B**.
+
+> 🔁 The direction of reduction is crucial:  
+> To show that **A is at least as hard as B**, you reduce **B to A**, not the other way around.
+
+
 ## Complexity Classes
 
 ### NP (Nondeterministic Polynomial Time)
