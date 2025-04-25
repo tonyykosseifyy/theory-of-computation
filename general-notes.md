@@ -139,6 +139,7 @@ A problem is in NP if, given a **"yes" instance** (i.e., a certificate or soluti
 ### Assumption: And their results
 
 Assuming P ≠ NP, there must exist problems in NP that are neither in P nor NP-complete
+
 ---
 
 ## 1. Reductions and Their Implications
