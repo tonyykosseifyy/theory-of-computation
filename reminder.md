@@ -1,8 +1,7 @@
 # General Notes and Facts
 
 ### 1. **Is Every Problem in NP Also NP-Complete?**
-**No**, because some problems in **NP** are **not NP-hard**.  
-- Example: **Finding a Hamiltonian Path** is in NP but **not known to be NP-complete**.
+**No**, because some problems in **NP** are in **P**.  
 
 ---
 
